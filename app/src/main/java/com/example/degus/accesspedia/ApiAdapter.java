@@ -14,7 +14,7 @@ import java.net.URL;
  * Created by Dominik Nowak on 26.07.2017.
  */
 
-public class ApiRetriever extends AsyncTask<String, Void, String> {
+public class ApiAdapter extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... uri) {
         return getJsonFromUrl(uri[0]);

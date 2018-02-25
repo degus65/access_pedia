@@ -1,4 +1,4 @@
-package com.example.degus.accesspedia;
+package com.example.degus.accesspedia.activity;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
@@ -12,7 +12,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.example.degus.accesspedia.ContentMaker;
+import com.example.degus.accesspedia.R;
+import com.example.degus.accesspedia.SpeechUtils;
+
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -23,10 +26,7 @@ public class MainActivity extends AbstractMainActivity {
     private TextView text;
     private Button button;
     private SpeechUtils speechUtils;
-    public String uri="https://pl.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&titles=";
-    public String space="%20";
     private SpeechRecognizer speechRecognizer;
-    private ApiRetriever apiRetriever;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,20 +81,13 @@ public class MainActivity extends AbstractMainActivity {
 
     @Override
     public void onResults(Bundle results) {
-        apiRetriever = new ApiRetriever();
-        ArrayList<String> words = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-        Log.i("speech", words.toString());
-        String url=new String(uri);
-        for(String s:words){
-            url+=s+space;
-        }
-        url=url.substring(0, url.length()-3);
-        Log.i("speech", url);
-        String result= "";
+        ContentMaker contentMaker = new ContentMaker();
+        String result = null;
         try {
-            result = apiRetriever.execute(url).get();
-        } catch (ExecutionException |InterruptedException e) {
+            result = contentMaker.getContent(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
+        } catch (InterruptedException|ExecutionException e) {
             e.printStackTrace();
+            Toast.makeText(getBaseContext(), "Nie udało się pobrać danych. Spróbuj ponownie", Toast.LENGTH_SHORT).show();
         }
         text.setText(result);
     }
