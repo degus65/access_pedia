@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +26,7 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AbstractMainActivity {
 
     private TextView text;
-    private Button button;
+    private ImageButton microphoneButton;
     private SpeechUtils speechUtils;
     private SpeechRecognizer speechRecognizer;
 
@@ -41,9 +41,9 @@ public class MainActivity extends AbstractMainActivity {
 
     private void findViews() {
         text = (TextView) findViewById(R.id.text);
-        button = (Button) findViewById(R.id.button);
+        microphoneButton = (ImageButton) findViewById(R.id.micro);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        microphoneButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 try {
