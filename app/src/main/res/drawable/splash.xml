@@ -5,9 +5,9 @@
 
     <item>
         <bitmap
-            android:src="@drawable/logo_vertical_large2"
+            android:src="@drawable/logo_vertical_large35"
             android:tileMode="disabled"
-            android:right="10dp" android:left="10dp"/>
+            android:gravity="center" />
     </item>
 
 </layer-list>

@@ -1,5 +1,7 @@
 package com.example.degus.accesspedia;
 
+import org.json.JSONException;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -9,9 +11,10 @@ import java.util.concurrent.ExecutionException;
 
 public class ContentMaker {
 
-    public String getContent(List<String> words) throws ExecutionException, InterruptedException {
+    public String getContent(List<String> words) throws ExecutionException, InterruptedException, JSONException {
         ApiAdapter apiAdapter = new ApiAdapter();
         MessageHandler messageHandler = new MessageHandler(words);
-        return apiAdapter.execute(messageHandler.convertMessageToURL()).get();
+        String json = apiAdapter.execute(messageHandler.convertMessageToURL()).get();
+        return JSONParser.parse(json);
     }
 }

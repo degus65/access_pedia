@@ -16,6 +16,8 @@ import com.example.degus.accesspedia.ContentMaker;
 import com.example.degus.accesspedia.R;
 import com.example.degus.accesspedia.SpeechUtils;
 
+import org.json.JSONException;
+
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -85,7 +87,7 @@ public class MainActivity extends AbstractMainActivity {
         String result = null;
         try {
             result = contentMaker.getContent(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
-        } catch (InterruptedException|ExecutionException e) {
+        } catch (InterruptedException|ExecutionException|JSONException e) {
             e.printStackTrace();
             Toast.makeText(getBaseContext(), "Nie udało się pobrać danych. Spróbuj ponownie", Toast.LENGTH_SHORT).show();
         }

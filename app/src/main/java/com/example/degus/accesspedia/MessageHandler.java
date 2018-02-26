@@ -25,12 +25,4 @@ public class MessageHandler {
         }
         return "";
     }
-
-    public List<String> getWords() {
-        return words;
-    }
-
-    public void setWords(List<String> words) {
-        this.words = words;
-    }
 }
