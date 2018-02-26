@@ -21,8 +21,12 @@ public class MessageHandler {
     public String convertMessageToURL(){
         Log.i("speech", words.toString());
         if(!words.isEmpty()) {
-            return URI_TITLE + words.remove(0);
+            return URI_TITLE + handleWhiteSpaces(words.remove(0));
         }
         return "";
+    }
+
+    private String handleWhiteSpaces(String message){
+        return message.trim().replaceAll(" ", SPACE);
     }
 }
