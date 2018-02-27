@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AccessPedia</string>
+    <string name="init_message">Push the microphone button and say what you want to know</string>
+    <string name="could_not_get_data">We could not download data. Try again.</string>
+    <string name="recording_started">Voice recording starts</string>
+    <string name="speech_not_allowed">Sorry! Speech recognition is not supported in this device.</string>
 </resources>

@@ -48,12 +48,10 @@ public class MainActivity extends AbstractMainActivity {
             public void onClick(View v) {
 
                 try {
-                    Log.i("speech", "button");
                     speechRecognizer.startListening(speechUtils.getRecognizerIntent(getPackageName()));
 
                 } catch (ActivityNotFoundException a) {
-                    Toast.makeText(getApplicationContext(),
-                            "Sorry! Speech recognition is not supported in this device.",
+                    Toast.makeText(getApplicationContext(), getString(R.string.speech_not_allowed),
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -63,17 +61,16 @@ public class MainActivity extends AbstractMainActivity {
     public void initSpeechRecognizer() {
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
         speechRecognizer.setRecognitionListener(this);
-        Log.i("speech", "create");
     }
 
     @Override
     public void onReadyForSpeech(Bundle params) {
-        Toast.makeText(getBaseContext(), "Voice recording starts", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), getString(R.string.recording_started), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onError(int error) {
-        Log.i("speech", String.valueOf(error));
+        Log.e("speech", String.valueOf(error));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             String requiredPermission = Manifest.permission.RECORD_AUDIO;
             if (checkCallingOrSelfPermission(requiredPermission) == PackageManager.PERMISSION_DENIED) {
@@ -85,12 +82,12 @@ public class MainActivity extends AbstractMainActivity {
     @Override
     public void onResults(Bundle results) {
         ContentMaker contentMaker = new ContentMaker();
-        String result = null;
+        String result = "";
         try {
             result = contentMaker.getContent(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
         } catch (InterruptedException | ExecutionException | JSONException e) {
             e.printStackTrace();
-            Toast.makeText(getBaseContext(), "We could not download data. Try again.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), getString(R.string.could_not_get_data), Toast.LENGTH_SHORT).show();
         }
         text.setText(Html.fromHtml(result));
     }

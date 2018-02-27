@@ -32,7 +32,7 @@ public class ApiAdapter extends AsyncTask<String, Void, String> {
             reader = new BufferedReader(new InputStreamReader(stream));
 
             StringBuffer buffer = new StringBuffer();
-            String line = "";
+            String line;
 
             while ((line = reader.readLine()) != null) {
                 buffer.append(line + "\n");
