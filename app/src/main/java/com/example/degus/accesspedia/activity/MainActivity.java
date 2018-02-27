@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -89,8 +90,14 @@ public class MainActivity extends AbstractMainActivity {
             result = contentMaker.getContent(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
         } catch (InterruptedException|ExecutionException|JSONException e) {
             e.printStackTrace();
-            Toast.makeText(getBaseContext(), "Nie udało się pobrać danych. Spróbuj ponownie", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "We could not download data. Try again.", Toast.LENGTH_SHORT).show();
         }
-        text.setText(result);
+        text.setText(Html.fromHtml(result));
+    }
+
+    @Override
+    protected void onDestroy() {
+        speechRecognizer.destroy();
+        super.onDestroy();
     }
 }

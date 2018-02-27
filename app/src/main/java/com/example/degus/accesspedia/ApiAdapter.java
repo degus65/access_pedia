@@ -38,6 +38,7 @@ public class ApiAdapter extends AsyncTask<String, Void, String> {
                 buffer.append(line + "\n");
                 Log.d("Response: ", "> " + line);
             }
+            connection.disconnect();
             return buffer.toString();
         } catch (IOException e) {
             e.printStackTrace();
