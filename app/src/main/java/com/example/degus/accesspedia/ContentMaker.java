@@ -1,5 +1,7 @@
 package com.example.degus.accesspedia;
 
+import android.content.Context;
+
 import org.json.JSONException;
 
 import java.util.List;
@@ -11,10 +13,21 @@ import java.util.concurrent.ExecutionException;
 
 public class ContentMaker {
 
+    private final Context appContext;
+
+    public ContentMaker(Context appContext) {
+        this.appContext = appContext;
+    }
+
     public String getContent(List<String> words) throws ExecutionException, InterruptedException, JSONException {
-        ApiAdapter apiAdapter = new ApiAdapter();
-        MessageHandler messageHandler = new MessageHandler(words);
-        String json = apiAdapter.execute(messageHandler.convertMessageToURL()).get();
-        return JSONParser.parse(json);
+        while (!words.isEmpty()) {
+            String url = MessageHandler.convertMessageToURL(words.remove(0));
+            ApiAdapter apiAdapter = new ApiAdapter();
+            String json = apiAdapter.execute(url).get();
+            if (JSONParser.hasJSONValidData(json)) {
+                return JSONParser.parse(json);
+            }
+        }
+        return appContext.getString(R.string.understand);
     }
 }

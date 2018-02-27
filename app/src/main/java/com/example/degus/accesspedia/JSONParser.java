@@ -10,10 +10,20 @@ import org.json.JSONObject;
 public class JSONParser {
 
     public static String parse(String json) throws JSONException {
-        JSONObject allJSONObject = new JSONObject(json);
-        JSONObject pages = allJSONObject.getJSONObject("query").getJSONObject("pages");
+        JSONObject pages = extractPagesJSONObject(json);
         String firstPageID = pages.keys().next();
         JSONObject firstPage = pages.getJSONObject(firstPageID);
         return firstPage.getString("extract");
+    }
+
+    public static boolean hasJSONValidData(String json) throws JSONException {
+        JSONObject pages = extractPagesJSONObject(json);
+        String firstPageID = pages.keys().next();
+        return Integer.parseInt(firstPageID) > 0;
+    }
+
+    private static JSONObject extractPagesJSONObject(String json) throws JSONException {
+        JSONObject allJSONObject = new JSONObject(json);
+        return allJSONObject.getJSONObject("query").getJSONObject("pages");
     }
 }

@@ -81,7 +81,7 @@ public class MainActivity extends AbstractMainActivity {
 
     @Override
     public void onResults(Bundle results) {
-        ContentMaker contentMaker = new ContentMaker();
+        ContentMaker contentMaker = new ContentMaker(this);
         String result = "";
         try {
             result = contentMaker.getContent(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
