@@ -88,7 +88,7 @@ public class MainActivity extends AbstractMainActivity {
         String result = null;
         try {
             result = contentMaker.getContent(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
-        } catch (InterruptedException|ExecutionException|JSONException e) {
+        } catch (InterruptedException | ExecutionException | JSONException e) {
             e.printStackTrace();
             Toast.makeText(getBaseContext(), "We could not download data. Try again.", Toast.LENGTH_SHORT).show();
         }

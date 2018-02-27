@@ -11,22 +11,22 @@ import java.util.List;
 public class MessageHandler {
 
     private List<String> words;
-    private final static String URI_TITLE="https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&titles=";
-    private final static String SPACE="%20";
+    private final static String URI_TITLE = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&titles=";
+    private final static String SPACE = "%20";
 
     public MessageHandler(List<String> words) {
         this.words = words;
     }
 
-    public String convertMessageToURL(){
+    public String convertMessageToURL() {
         Log.i("speech", words.toString());
-        if(!words.isEmpty()) {
+        if (!words.isEmpty()) {
             return URI_TITLE + handleWhiteSpaces(words.remove(0));
         }
         return "";
     }
 
-    private String handleWhiteSpaces(String message){
+    private String handleWhiteSpaces(String message) {
         return message.trim().replaceAll(" ", SPACE);
     }
 }
