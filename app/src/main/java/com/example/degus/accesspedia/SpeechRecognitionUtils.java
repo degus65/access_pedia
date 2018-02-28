@@ -9,9 +9,9 @@ import java.util.Locale;
  * Created by Dominik Nowak on 06.08.2017.
  */
 
-public class SpeechUtils {
+public class SpeechRecognitionUtils {
 
-    public Intent getRecognizerIntent(String packageName) {
+    public static Intent getRecognizerIntent(String packageName) {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, packageName);

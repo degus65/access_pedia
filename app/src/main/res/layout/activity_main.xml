@@ -5,14 +5,23 @@
     android:layout_height="match_parent"
     tools:context="com.example.degus.accesspedia.activity.MainActivity">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/init_message"
-        android:layout_centerHorizontal="true"
-        android:textAlignment="center" />
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:text="@string/init_message"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+    </ScrollView>
 
     <ImageButton
         android:id="@+id/micro"

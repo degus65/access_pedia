@@ -2,10 +2,12 @@ package com.example.degus.accesspedia.activity;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
+import android.speech.tts.TextToSpeech;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +17,8 @@ import android.widget.Toast;
 
 import com.example.degus.accesspedia.ContentMaker;
 import com.example.degus.accesspedia.R;
-import com.example.degus.accesspedia.SpeechUtils;
+import com.example.degus.accesspedia.SpeechRecognitionUtils;
+import com.example.degus.accesspedia.TextToSpeechTool;
 
 import org.json.JSONException;
 
@@ -28,27 +31,26 @@ public class MainActivity extends AbstractMainActivity {
 
     private TextView text;
     private ImageButton microphoneButton;
-    private SpeechUtils speechUtils;
     private SpeechRecognizer speechRecognizer;
+    private TextToSpeechTool textToSpeechTool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        speechUtils = new SpeechUtils();
         initSpeechRecognizer();
         findViews();
+        TextToSpeechTool.startCheckingIsTextToSpeechAvailable(this);
     }
 
     private void findViews() {
         text = (TextView) findViewById(R.id.text);
         microphoneButton = (ImageButton) findViewById(R.id.micro);
-
         microphoneButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 try {
-                    speechRecognizer.startListening(speechUtils.getRecognizerIntent(getPackageName()));
+                    speechRecognizer.startListening(SpeechRecognitionUtils.getRecognizerIntent(getPackageName()));
 
                 } catch (ActivityNotFoundException a) {
                     Toast.makeText(getApplicationContext(), getString(R.string.speech_not_allowed),
@@ -90,11 +92,31 @@ public class MainActivity extends AbstractMainActivity {
             Toast.makeText(getBaseContext(), getString(R.string.could_not_get_data), Toast.LENGTH_SHORT).show();
         }
         text.setText(Html.fromHtml(result));
+        if (textToSpeechTool != null) {
+            textToSpeechTool.speak(Html.fromHtml(result).toString());
+        } else {
+            Toast.makeText(getBaseContext(), getString(R.string.text_to_speech_failed), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
     protected void onDestroy() {
         speechRecognizer.destroy();
+        if (textToSpeechTool != null) {
+            textToSpeechTool.stopAndShutdown();
+        }
         super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == TextToSpeechTool.CHECK_TTS_DATA) {
+            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+                textToSpeechTool = new TextToSpeechTool(this);
+            } else {
+                TextToSpeechTool.installTextToSpeech(this);
+            }
+        }
     }
 }

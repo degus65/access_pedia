@@ -10,9 +10,9 @@ public class Splash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SystemClock.sleep(1000);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        SystemClock.sleep(1000);
         finish();
     }
 }
