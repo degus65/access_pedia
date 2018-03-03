@@ -25,7 +25,11 @@ public class ContentMaker {
             ApiAdapter apiAdapter = new ApiAdapter();
             String json = apiAdapter.execute(url).get();
             if (JSONParser.hasJSONValidData(json)) {
-                return JSONParser.parse(json);
+                String content = JSONParser.parse(json);
+                if (ContentStandardizer.isAmbiguous(content)) {
+                    return this.getContent(ContentStandardizer.disambiguate(content));
+                }
+                return content;
             }
         }
         return appContext.getString(R.string.understand);
