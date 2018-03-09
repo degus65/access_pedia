@@ -27,7 +27,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by Dominik Nowak on 26.07.2017.
  */
-public class MainActivity extends AbstractMainActivity {
+public class MainActivity extends ContextMenuMainActivity {
 
     private TextView text;
     private ImageButton microphoneButton;
@@ -118,5 +118,13 @@ public class MainActivity extends AbstractMainActivity {
                 TextToSpeechTool.installTextToSpeech(this);
             }
         }
+    }
+
+    public void muteTextToSpeech() {
+        textToSpeechTool.mute();
+    }
+
+    public void unMuteTextToSpeech() {
+        textToSpeechTool.unMute();
     }
 }

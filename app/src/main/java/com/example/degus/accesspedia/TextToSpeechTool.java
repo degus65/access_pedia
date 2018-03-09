@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.Locale;
@@ -17,6 +16,7 @@ public class TextToSpeechTool {
 
     public static final int CHECK_TTS_DATA = 1000;
     private final TextToSpeech textToSpeech;
+    private boolean isMuted = false;
 
     public TextToSpeechTool(final Context context) {
         textToSpeech = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
@@ -29,8 +29,9 @@ public class TextToSpeechTool {
     }
 
     public void speak(String toSay) {
-        Log.d("speak", toSay);
-        textToSpeech.speak(toSay, TextToSpeech.QUEUE_ADD, null, null);
+        if (!isMuted) {
+            textToSpeech.speak(toSay, TextToSpeech.QUEUE_ADD, null, null);
+        }
     }
 
     public void stopAndShutdown() {
@@ -48,5 +49,14 @@ public class TextToSpeechTool {
         Intent ttsIntent = new Intent();
         ttsIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
         activity.startActivityForResult(ttsIntent, TextToSpeechTool.CHECK_TTS_DATA);
+    }
+
+    public void mute() {
+        isMuted = true;
+        textToSpeech.stop();
+    }
+
+    public void unMute() {
+        isMuted = false;
     }
 }

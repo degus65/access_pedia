@@ -6,4 +6,10 @@
     <string name="speech_not_allowed">Sorry! Speech recognition is not supported in this device.</string>
     <string name="understand">We could not find any information about this therm. Try use other words.</string>
     <string name="text_to_speech_failed">Failed to initialize Text to Speech.</string>
+    <string name="about">Author: Dominik Nowak\n
+        This application was created as a Master\'s Thesis on\n
+        Politechnika Krakowska im. Tadeusza Kościuszki in Cracow 2018</string>
+    <string name="mute">Mute</string>
+    <string name="un_mute">UnMute</string>
+    <string name="about_menu_item">About</string>
 </resources>
