@@ -12,13 +12,15 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.degus.accesspedia.ContentMaker;
 import com.example.degus.accesspedia.R;
 import com.example.degus.accesspedia.SpeechRecognitionUtils;
 import com.example.degus.accesspedia.TextToSpeechTool;
+import com.example.degus.accesspedia.content.ContentMaker;
+import com.example.degus.accesspedia.content.ContentModel;
 
 import org.json.JSONException;
 
@@ -29,7 +31,9 @@ import java.util.concurrent.ExecutionException;
  */
 public class MainActivity extends ContextMenuMainActivity {
 
-    private TextView text;
+    private TextView header;
+    private ImageView articleImage;
+    private TextView content;
     private ImageButton microphoneButton;
     private SpeechRecognizer speechRecognizer;
     private TextToSpeechTool textToSpeechTool;
@@ -44,7 +48,9 @@ public class MainActivity extends ContextMenuMainActivity {
     }
 
     private void findViews() {
-        text = (TextView) findViewById(R.id.text);
+        header = (TextView) findViewById(R.id.header);
+        articleImage = (ImageView) findViewById(R.id.articleImage);
+        content = (TextView) findViewById(R.id.textContent);
         microphoneButton = (ImageButton) findViewById(R.id.micro);
         microphoneButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -84,20 +90,19 @@ public class MainActivity extends ContextMenuMainActivity {
     @Override
     public void onResults(Bundle results) {
         ContentMaker contentMaker = new ContentMaker(this);
-        String result = "";
+        ContentModel contentModel;
         try {
-            result = contentMaker.getContent(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
+            contentModel = contentMaker.getContent(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
+            header.setText(Html.fromHtml(contentModel.getHeader()));
+            if (textToSpeechTool != null) {
+                textToSpeechTool.speak(Html.fromHtml(contentModel.getHeader() + " " + contentModel.getContent()).toString());
+            } else {
+                Toast.makeText(getBaseContext(), getString(R.string.text_to_speech_failed), Toast.LENGTH_SHORT).show();
+            }
         } catch (InterruptedException | ExecutionException | JSONException e) {
             e.printStackTrace();
             Toast.makeText(getBaseContext(), getString(R.string.could_not_get_data), Toast.LENGTH_SHORT).show();
         }
-        text.setText(Html.fromHtml(result));
-        if (textToSpeechTool != null) {
-            textToSpeechTool.speak(Html.fromHtml(result).toString());
-        } else {
-            Toast.makeText(getBaseContext(), getString(R.string.text_to_speech_failed), Toast.LENGTH_SHORT).show();
-        }
-
     }
 
     @Override

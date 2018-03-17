@@ -7,10 +7,11 @@
 
     <item
         android:id="@+id/action_mute"
-        android:title="@string/mute"></item>
+        android:title="@string/mute"
+        android:icon="@drawable/ic_unmuted" />
 
     <item
         android:id="@+id/action_about"
-        android:title="@string/about_menu_item"></item>
+        android:title="@string/about_menu_item" />
 
 </menu>

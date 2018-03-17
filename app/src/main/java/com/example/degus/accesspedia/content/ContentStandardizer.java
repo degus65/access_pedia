@@ -1,4 +1,4 @@
-package com.example.degus.accesspedia;
+package com.example.degus.accesspedia.content;
 
 import android.util.Log;
 

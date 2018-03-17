@@ -1,6 +1,7 @@
 package com.example.degus.accesspedia.activity;
 
 import android.content.Intent;
+import android.support.v7.view.menu.MenuBuilder;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,26 +18,17 @@ public abstract class ContextMenuMainActivity extends AbstractMainActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_layout, menu);
+        if (menu instanceof MenuBuilder) {
+            ((MenuBuilder) menu).setOptionalIconsVisible(true);
+        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
             case R.id.action_mute:
-                if (this instanceof MainActivity) {
-                    MainActivity mainActivity = (MainActivity) this;
-                    if (isMuted) {
-                        isMuted = false;
-                        mainActivity.unMuteTextToSpeech();
-                        item.setTitle(getString(R.string.mute));
-                    } else {
-                        isMuted = true;
-                        mainActivity.muteTextToSpeech();
-                        item.setTitle(getString(R.string.un_mute));
-                    }
-                }
+                handleMuteItemClick(item);
                 break;
 
             case R.id.action_about:
@@ -48,5 +40,22 @@ public abstract class ContextMenuMainActivity extends AbstractMainActivity {
                 break;
         }
         return true;
+    }
+
+    private void handleMuteItemClick(MenuItem item) {
+        if (this instanceof MainActivity) {
+            MainActivity mainActivity = (MainActivity) this;
+            if (isMuted) {
+                isMuted = false;
+                mainActivity.unMuteTextToSpeech();
+                item.setTitle(getString(R.string.mute));
+                item.setIcon(R.drawable.ic_unmuted);
+            } else {
+                isMuted = true;
+                mainActivity.muteTextToSpeech();
+                item.setTitle(getString(R.string.un_mute));
+                item.setIcon(R.drawable.ic_muted);
+            }
+        }
     }
 }

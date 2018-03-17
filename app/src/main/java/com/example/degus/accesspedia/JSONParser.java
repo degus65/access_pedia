@@ -22,7 +22,7 @@ public class JSONParser {
         return Integer.parseInt(firstPageID) > 0;
     }
 
-    private static JSONObject extractPagesJSONObject(String json) throws JSONException {
+    public static JSONObject extractPagesJSONObject(String json) throws JSONException {
         JSONObject allJSONObject = new JSONObject(json);
         return allJSONObject.getJSONObject("query").getJSONObject("pages");
     }

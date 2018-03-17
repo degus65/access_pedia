@@ -17,7 +17,7 @@ public class MessageHandler {
         return URI_TITLE + handleWhiteSpaces(message);
     }
 
-    private static String handleWhiteSpaces(String message) {
+    public static String handleWhiteSpaces(String message) {
         return message.trim().replaceAll(" ", SPACE);
     }
 }
