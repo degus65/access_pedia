@@ -7,6 +7,8 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.degus.accesspedia.content.Splitter;
+
 import java.util.Locale;
 
 /**
@@ -31,8 +33,11 @@ public class TextToSpeechTool {
 
     public void speak(String toSay) {
         if (!isMuted) {
-            Log.d("speak", "speak");
-            textToSpeech.speak(toSay, TextToSpeech.QUEUE_ADD, null, null);
+            if (toSay.length() > TextToSpeech.getMaxSpeechInputLength()) {
+                toSay = Splitter.abbreviate(toSay, TextToSpeech.getMaxSpeechInputLength());
+            }
+            Log.d("speak", toSay);
+            textToSpeech.speak(toSay, TextToSpeech.QUEUE_FLUSH, null, null);
         }
     }
 

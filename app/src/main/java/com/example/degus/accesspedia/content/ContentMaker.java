@@ -10,7 +10,6 @@ import com.example.degus.accesspedia.image.ImageReceiver;
 
 import org.json.JSONException;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -38,7 +37,7 @@ public class ContentMaker {
                 return this.getContent(ContentStandardizer.disambiguate(content));
             }
             if (content != null && content.length() > 0) {
-                ContentModel contentModel = splitHeaderAndContent(content);
+                ContentModel contentModel = Splitter.splitHeaderAndContent(content);
                 contentModel.setImage(ImageReceiver.getImage(tempTitle));
                 return contentModel;
             }
@@ -50,27 +49,5 @@ public class ContentMaker {
         String url = MessageHandler.convertMessageToURL(title);
         ApiAdapter apiAdapter = new ApiAdapter();
         return apiAdapter.execute(url).get();
-    }
-
-    private ContentModel splitHeaderAndContent(String extractedArticle) {
-        ContentModel result = new ContentModel();
-        int indexOfSplit = getIndexOfSplit(extractedArticle);
-        result.setHeader(extractedArticle.substring(0, indexOfSplit));
-        if (indexOfSplit < extractedArticle.length() - 1) {
-            result.setContent(extractedArticle.substring(indexOfSplit, extractedArticle.length() - 1));
-        }
-        return result;
-    }
-
-    private int getIndexOfSplit(String extractedArticle) {
-        List<String> possibleDividers
-                = Arrays.asList(".", "\n", "</p>", "</span>", "</h1>", "</h2>", "</h3>");
-        for (String divider : possibleDividers) {
-            int indexOfSplit = extractedArticle.indexOf(divider);
-            if (indexOfSplit != -1) {
-                return indexOfSplit + divider.length();
-            }
-        }
-        return extractedArticle.length();
     }
 }
