@@ -15,20 +15,19 @@ import java.util.Locale;
  * Created by Dominik Nowak on 28/02/2018.
  */
 
-public class TextToSpeechTool {
+public class TextToSpeechTool extends TextToSpeech {
 
     public static final int CHECK_TTS_DATA = 1000;
-    private final TextToSpeech textToSpeech;
     private boolean isMuted = false;
 
     public TextToSpeechTool(final Context context) {
-        textToSpeech = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
+        super(context, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
-                textToSpeech.setLanguage(Locale.getDefault());
                 Toast.makeText(context, "TextToSpeechInited", Toast.LENGTH_SHORT).show();
             }
         });
+        this.setLanguage(Locale.getDefault());
     }
 
     public void speak(String toSay) {
@@ -37,13 +36,8 @@ public class TextToSpeechTool {
                 toSay = Splitter.abbreviate(toSay, TextToSpeech.getMaxSpeechInputLength());
             }
             Log.d("speak", toSay);
-            textToSpeech.speak(toSay, TextToSpeech.QUEUE_FLUSH, null, null);
+            this.speak(toSay, TextToSpeech.QUEUE_FLUSH, null, null);
         }
-    }
-
-    public void stopAndShutdown() {
-        textToSpeech.stop();
-        textToSpeech.shutdown();
     }
 
     public static void installTextToSpeech(Context context) {
@@ -60,7 +54,7 @@ public class TextToSpeechTool {
 
     public void mute() {
         isMuted = true;
-        textToSpeech.stop();
+        this.stop();
     }
 
     public void unMute() {

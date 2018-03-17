@@ -73,6 +73,7 @@ public class MainActivity extends ContextMenuMainActivity {
 
     @Override
     public void onReadyForSpeech(Bundle params) {
+        textToSpeechTool.stop();
         Toast.makeText(getBaseContext(), getString(R.string.recording_started), Toast.LENGTH_SHORT).show();
     }
 
@@ -119,7 +120,8 @@ public class MainActivity extends ContextMenuMainActivity {
     protected void onDestroy() {
         speechRecognizer.destroy();
         if (textToSpeechTool != null) {
-            textToSpeechTool.stopAndShutdown();
+            textToSpeechTool.stop();
+            textToSpeechTool.shutdown();
         }
         super.onDestroy();
     }
