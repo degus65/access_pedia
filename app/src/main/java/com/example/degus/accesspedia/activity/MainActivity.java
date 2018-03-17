@@ -93,7 +93,7 @@ public class MainActivity extends ContextMenuMainActivity {
         ContentModel contentModel;
         try {
             contentModel = contentMaker.getContent(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
-            header.setText(Html.fromHtml(contentModel.getHeader()));
+            setContent(contentModel);
             if (textToSpeechTool != null) {
                 textToSpeechTool.speak(Html.fromHtml(contentModel.getHeader() + " " + contentModel.getContent()).toString());
             } else {
@@ -102,6 +102,16 @@ public class MainActivity extends ContextMenuMainActivity {
         } catch (InterruptedException | ExecutionException | JSONException e) {
             e.printStackTrace();
             Toast.makeText(getBaseContext(), getString(R.string.could_not_get_data), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void setContent(ContentModel contentModel) {
+        header.setText(Html.fromHtml(contentModel.getHeader()));
+        content.setText(Html.fromHtml(contentModel.getContent()));
+        if (contentModel.getImage() != null) {
+            articleImage.setImageBitmap(contentModel.getImage());
+        } else {
+            articleImage.setImageResource(android.R.color.transparent);
         }
     }
 

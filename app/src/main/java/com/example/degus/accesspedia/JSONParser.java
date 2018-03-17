@@ -26,4 +26,11 @@ public class JSONParser {
         JSONObject allJSONObject = new JSONObject(json);
         return allJSONObject.getJSONObject("query").getJSONObject("pages");
     }
+
+    public static boolean hasJsonThumbnailUrl(String json) throws JSONException {
+        JSONObject pages = extractPagesJSONObject(json);
+        String firstPageID = pages.keys().next();
+        JSONObject firstPage = pages.getJSONObject(firstPageID);
+        return firstPage.has("thumbnail");
+    }
 }

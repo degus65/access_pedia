@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.Locale;
@@ -30,6 +31,7 @@ public class TextToSpeechTool {
 
     public void speak(String toSay) {
         if (!isMuted) {
+            Log.d("speak", "speak");
             textToSpeech.speak(toSay, TextToSpeech.QUEUE_ADD, null, null);
         }
     }
