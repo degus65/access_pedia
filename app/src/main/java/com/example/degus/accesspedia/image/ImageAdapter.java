@@ -1,4 +1,4 @@
-package com.example.degus.accesspedia;
+package com.example.degus.accesspedia.image;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

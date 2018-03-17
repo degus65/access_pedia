@@ -1,6 +1,10 @@
-package com.example.degus.accesspedia;
+package com.example.degus.accesspedia.image;
 
 import android.graphics.Bitmap;
+
+import com.example.degus.accesspedia.ApiAdapter;
+import com.example.degus.accesspedia.JSONParser;
+import com.example.degus.accesspedia.MessageHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
