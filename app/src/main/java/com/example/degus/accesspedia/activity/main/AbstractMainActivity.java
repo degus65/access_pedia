@@ -1,4 +1,4 @@
-package com.example.degus.accesspedia.activity;
+package com.example.degus.accesspedia.activity.main;
 
 import android.os.Bundle;
 import android.speech.RecognitionListener;

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.degus.accesspedia.activity.main.MainActivity;
+
 public class Splash extends AppCompatActivity {
 
     @Override

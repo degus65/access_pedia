@@ -1,4 +1,4 @@
-package com.example.degus.accesspedia.activity;
+package com.example.degus.accesspedia.activity.main;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
@@ -11,8 +11,10 @@ import android.speech.tts.TextToSpeech;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,14 +56,21 @@ public class MainActivity extends ContextMenuMainActivity {
         microphoneButton = (ImageButton) findViewById(R.id.micro);
         microphoneButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 try {
+                    microphoneButton.animate().alpha(1.0f).setDuration(100).start();
                     speechRecognizer.startListening(SpeechRecognitionUtils.getRecognizerIntent(getPackageName()));
 
                 } catch (ActivityNotFoundException a) {
                     Toast.makeText(getApplicationContext(), getString(R.string.speech_not_allowed),
                             Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        final ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                microphoneButton.animate().alpha(0.1f).setDuration(1000).start();
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.example.degus.accesspedia.activity;
+package com.example.degus.accesspedia.activity.main;
 
 import android.content.Intent;
 import android.support.v7.view.menu.MenuBuilder;
@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.degus.accesspedia.R;
+import com.example.degus.accesspedia.activity.AboutActivity;
 
 /**
  * Created by Dominik Nowak on 09/03/2018.
