@@ -19,15 +19,14 @@ public class ImageAdapter extends AsyncTask<String, Void, Bitmap> {
         return getBitmapFromURL(uri[0]);
     }
 
-    public Bitmap getBitmapFromURL(String src) {
+    private Bitmap getBitmapFromURL(String src) {
         try {
             java.net.URL url = new java.net.URL(src);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
             connection.connect();
             InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return myBitmap;
+            return BitmapFactory.decodeStream(input);
         } catch (IOException e) {
             e.printStackTrace();
             return null;

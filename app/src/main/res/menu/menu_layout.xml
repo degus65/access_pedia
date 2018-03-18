@@ -14,4 +14,15 @@
         android:id="@+id/action_about"
         android:title="@string/about_menu_item" />
 
+    <item android:title="@string/language">
+        <menu>
+            <item
+                android:id="@+id/lang_pl"
+                android:title="@string/polish" />
+            <item
+                android:id="@+id/lang_en"
+                android:title="@string/english" />
+        </menu>
+    </item>
+
 </menu>

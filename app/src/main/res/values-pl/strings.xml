@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">AccessPedia</string>
+    <string name="init_message">Wciśnij mikrofon i powiedz hasło o którym chcesz się dowiedzieć więcej</string>
+    <string name="could_not_get_data">Nie możemy pobrać danych. Spróbuj ponownie.</string>
+    <string name="recording_started">Mów teraz</string>
+    <string name="speech_not_allowed">Przepraszamy! Rozpoznawanie głosu nie jest wspierane przez Twoje urządzenie.</string>
+    <string name="understand">Nie możemy znaleźć żadnych informacji o tym haśle. Spróbuj użyć innych słów.</string>
+    <string name="text_to_speech_failed">Nie udało się uruchomić syntezatora mowy</string>
+    <string name="about">Autor: Dominik Nowak\n
+        Aplikacja powstała jako praca magisterska na\n
+        Politechnice Krakowskiej im. Tadeusza Kościuszki w Krakowie 2018</string>
+    <string name="mute">Wycisz</string>
+    <string name="un_mute">Włącz głos</string>
+    <string name="about_menu_item">O autorze</string>
+    <string name="language">Język</string>
+    <string name="polish">Polski</string>
+    <string name="english">English</string>
+    <string name="unavaible_language">"Język jest niedostępny."</string>
+</resources>

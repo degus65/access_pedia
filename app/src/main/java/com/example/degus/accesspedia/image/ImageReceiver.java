@@ -9,6 +9,7 @@ import com.example.degus.accesspedia.MessageHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -17,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 
 public class ImageReceiver {
 
-    private final static String URI_IMAGE = "https://en.wikipedia.org/w/api.php?format=json&" +
+    private final static String URI_IMAGE = "https://" + Locale.getDefault().getLanguage() + ".wikipedia.org/w/api.php?format=json&" +
             "action=query&prop=pageimages&pithumbsize=600&titles=";
 
     public static Bitmap getImage(String title) throws JSONException, ExecutionException, InterruptedException {

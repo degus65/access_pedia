@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_logo_accesspedia_rounded"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.main.MainActivity" />
+        <activity
+            android:name=".activity.main.MainActivity"
+            android:configChanges="locale|orientation" />
         <activity
             android:name=".activity.Splash"
             android:theme="@style/SplashTheme">

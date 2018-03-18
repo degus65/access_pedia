@@ -2,7 +2,7 @@
     <string name="app_name">AccessPedia</string>
     <string name="init_message">Push the microphone button and say what you want to know</string>
     <string name="could_not_get_data">We could not download data. Try again.</string>
-    <string name="recording_started">Voice recording starts</string>
+    <string name="recording_started">Speak now</string>
     <string name="speech_not_allowed">Sorry! Speech recognition is not supported in this device.</string>
     <string name="understand">We could not find any information about this therm. Try use other words.</string>
     <string name="text_to_speech_failed">Failed to initialize Text to Speech.</string>
@@ -12,4 +12,8 @@
     <string name="mute">Mute</string>
     <string name="un_mute">UnMute</string>
     <string name="about_menu_item">About</string>
+    <string name="language">Language</string>
+    <string name="polish">Polski</string>
+    <string name="english">English</string>
+    <string name="unavaible_language">"Language is not available"</string>
 </resources>

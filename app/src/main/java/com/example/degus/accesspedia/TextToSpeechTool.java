@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.degus.accesspedia.content.Splitter;
 
@@ -24,7 +23,6 @@ public class TextToSpeechTool extends TextToSpeech {
         super(context, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
-                Toast.makeText(context, "TextToSpeechInited", Toast.LENGTH_SHORT).show();
             }
         });
         this.setLanguage(Locale.getDefault());

@@ -26,6 +26,7 @@ import com.example.degus.accesspedia.content.ContentModel;
 
 import org.json.JSONException;
 
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -152,5 +153,16 @@ public class MainActivity extends ContextMenuMainActivity {
 
     public void unMuteTextToSpeech() {
         textToSpeechTool.unMute();
+    }
+
+    public void setLocale(Locale locale) {
+        int result = textToSpeechTool.isLanguageAvailable(locale);
+        if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+            Toast.makeText(getBaseContext(), getString(R.string.unavaible_language), Toast.LENGTH_SHORT).show();
+        }
+        result = textToSpeechTool.setLanguage(locale);
+        if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+            Toast.makeText(getBaseContext(), getString(R.string.unavaible_language), Toast.LENGTH_SHORT).show();
+        }
     }
 }
