@@ -75,7 +75,7 @@ public class MainActivity extends ContextMenuMainActivity {
         });
     }
 
-    public void initSpeechRecognizer() {
+    private void initSpeechRecognizer() {
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
         speechRecognizer.setRecognitionListener(this);
     }

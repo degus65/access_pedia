@@ -13,7 +13,7 @@ public class MessageHandler {
 
 
     public static String convertMessageToURL(String message) {
-        Log.i("speech", message.toString());
+        Log.i("speech", message);
         return URI_TITLE + handleWhiteSpaces(message);
     }
 

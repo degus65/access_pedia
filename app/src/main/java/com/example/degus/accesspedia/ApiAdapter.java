@@ -20,7 +20,7 @@ public class ApiAdapter extends AsyncTask<String, Void, String> {
         return getJsonFromUrl(uri[0]);
     }
 
-    public String getJsonFromUrl(String url) {
+    private String getJsonFromUrl(String url) {
         HttpURLConnection connection;
         BufferedReader reader;
 
@@ -31,11 +31,11 @@ public class ApiAdapter extends AsyncTask<String, Void, String> {
             InputStream stream = connection.getInputStream();
             reader = new BufferedReader(new InputStreamReader(stream));
 
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             String line;
 
             while ((line = reader.readLine()) != null) {
-                buffer.append(line + "\n");
+                buffer.append(line).append("\n");
                 Log.d("Response: ", "> " + line);
             }
             connection.disconnect();

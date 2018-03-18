@@ -6,7 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class ContentStandardizer {
     }
 
     public static List<String> disambiguate(String content) {
-        return new LinkedList<>(Arrays.asList(extractFirstRelatedTherm(content)));
+        return new LinkedList<>(Collections.singletonList(extractFirstRelatedTherm(content)));
     }
 
     private static String extractFirstRelatedTherm(String html) {

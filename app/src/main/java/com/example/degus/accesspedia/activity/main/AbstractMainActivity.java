@@ -5,7 +5,6 @@ import android.speech.RecognitionListener;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-;
 
 /**
  * Created by Dominik Nowak on 25/02/2018.
