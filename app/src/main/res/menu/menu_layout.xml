@@ -18,10 +18,12 @@
         <menu>
             <item
                 android:id="@+id/lang_pl"
-                android:title="@string/polish" />
+                android:title="@string/polish"
+                android:icon="@mipmap/ic_pl_flag" />
             <item
                 android:id="@+id/lang_en"
-                android:title="@string/english" />
+                android:title="@string/english"
+                android:icon="@mipmap/ic_en_flag" />
         </menu>
     </item>
 

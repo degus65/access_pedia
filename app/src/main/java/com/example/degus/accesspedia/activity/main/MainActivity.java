@@ -159,10 +159,8 @@ public class MainActivity extends ContextMenuMainActivity {
         int result = textToSpeechTool.isLanguageAvailable(locale);
         if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
             Toast.makeText(getBaseContext(), getString(R.string.unavaible_language), Toast.LENGTH_SHORT).show();
-        }
-        result = textToSpeechTool.setLanguage(locale);
-        if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-            Toast.makeText(getBaseContext(), getString(R.string.unavaible_language), Toast.LENGTH_SHORT).show();
+        } else {
+            textToSpeechTool.setLanguage(locale);
         }
     }
 }
