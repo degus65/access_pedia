@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 
 import com.example.degus.accesspedia.content.Splitter;
 
@@ -34,7 +33,6 @@ public class TextToSpeechTool extends TextToSpeech {
                 toSay = Splitter.abbreviate(toSay, TextToSpeech.getMaxSpeechInputLength());
             }
             this.setLanguage(Locale.getDefault());
-            Log.d("speak", toSay);
             this.speak(toSay, TextToSpeech.QUEUE_FLUSH, null, null);
         }
     }

@@ -94,6 +94,8 @@ public class MainActivity extends ContextMenuMainActivity {
             String requiredPermission = Manifest.permission.RECORD_AUDIO;
             if (checkCallingOrSelfPermission(requiredPermission) == PackageManager.PERMISSION_DENIED) {
                 requestPermissions(new String[]{requiredPermission}, 101);
+            } else {
+                Toast.makeText(getBaseContext(), R.string.repeat, Toast.LENGTH_SHORT).show();
             }
         }
     }

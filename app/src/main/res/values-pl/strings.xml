@@ -16,4 +16,5 @@
     <string name="polish">Polski</string>
     <string name="english">English</string>
     <string name="unavaible_language">"Język jest niedostępny."</string>
+    <string name="repeat">Mógłbyś powtórzyć?</string>
 </resources>
