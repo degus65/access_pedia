@@ -33,6 +33,7 @@ public class TextToSpeechTool extends TextToSpeech {
             if (toSay.length() > TextToSpeech.getMaxSpeechInputLength()) {
                 toSay = Splitter.abbreviate(toSay, TextToSpeech.getMaxSpeechInputLength());
             }
+            this.setLanguage(Locale.getDefault());
             Log.d("speak", toSay);
             this.speak(toSay, TextToSpeech.QUEUE_FLUSH, null, null);
         }

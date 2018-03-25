@@ -18,12 +18,14 @@ import java.util.concurrent.ExecutionException;
 
 public class ImageReceiver {
 
-    private final static String URI_IMAGE = "https://" + Locale.getDefault().getLanguage() + ".wikipedia.org/w/api.php?format=json&" +
+    private final static String LANG_REPLACEMENT = "$$$";
+    private final static String URI_IMAGE = "https://" + LANG_REPLACEMENT + ".wikipedia.org/w/api.php?format=json&" +
             "action=query&prop=pageimages&pithumbsize=600&titles=";
 
     public static Bitmap getImage(String title) throws JSONException, ExecutionException, InterruptedException {
         ApiAdapter apiAdapter = new ApiAdapter();
-        String json = apiAdapter.execute(URI_IMAGE + MessageHandler.handleWhiteSpaces(title)).get();
+        String json = apiAdapter.execute(URI_IMAGE.replace(LANG_REPLACEMENT, Locale.getDefault().getLanguage())
+                + MessageHandler.handleWhiteSpaces(title)).get();
         if (JSONParser.hasJSONValidData(json) && JSONParser.hasJsonThumbnailUrl(json)) {
             String thumbnailURI = getImageUrlFrom(json);
             ImageAdapter imageAdapter = new ImageAdapter();
