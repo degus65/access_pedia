@@ -69,6 +69,10 @@ public abstract class ContextMenuMainActivity extends AbstractMainActivity {
                 setLocale("pl");
                 break;
 
+            case R.id.lang_it:
+                setLocale("it");
+                break;
+
             default:
                 break;
         }

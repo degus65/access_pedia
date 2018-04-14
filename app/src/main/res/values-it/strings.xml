@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">AccessPedia</string>
+    <string name="init_message">Premi il pulsante del microfono e dici che cosa vuoi cercare.</string>
+    <string name="could_not_get_data">Scaricare non è possibile adesso. Prova ancora una volta.</string>
+    <string name="recording_started">Parla adesso.</string>
+    <string name="speech_not_allowed">Ci dispiace! Il riconoscimento vocale non è supportato in questo dispositivo.</string>
+    <string name="understand">Non siamo riusciti a trovare l\'informazioni su questo termine. Prova ad usare altre parole.</string>
+    <string name="text_to_speech_failed">Impossibile inizializzare il riconoscimento vocale.</string>
+    <string name="about">Autore: Dominik Nowak\n
+	Questa applicazione è stata creata per esigenza di Tesi di Master\n
+        Politechnika Krakowska im. Tadeusza Kościuszki. Cracovia 2018.</string>
+    <string name="mute">Disattiva il microfono</string>
+    <string name="un_mute">Attiva il microfono</string>
+    <string name="about_menu_item">L\'informazioni</string>
+    <string name="language">Lingua</string>
+    <string name="polish">Polski</string>
+    <string name="english">English</string>
+    <string name="italiano">Italiano</string>
+    <string name="unavaible_language">Questa lingua non è inaccessible.</string>
+    <string name="repeat">Puoi ripetere?</string>
+</resources>

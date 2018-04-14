@@ -24,6 +24,10 @@
                 android:id="@+id/lang_en"
                 android:title="@string/english"
                 android:icon="@mipmap/ic_en_flag" />
+            <item
+                android:id="@+id/lang_it"
+                android:title="@string/italiano"
+                android:icon="@mipmap/ic_it_flag" />
         </menu>
     </item>
 
