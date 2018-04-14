@@ -4,7 +4,7 @@
     <string name="could_not_get_data">We could not download data. Try again.</string>
     <string name="recording_started">Speak now</string>
     <string name="speech_not_allowed">Sorry! Speech recognition is not supported in this device.</string>
-    <string name="understand">We could not find any information about this therm. Try use other words.</string>
+    <string name="understand">We could not find any information about this term. Try use other words.</string>
     <string name="text_to_speech_failed">Failed to initialize Text to Speech.</string>
     <string name="about">Author: Dominik Nowak\n
         This application was created as a Master\'s Thesis on\n
@@ -15,6 +15,6 @@
     <string name="language">Language</string>
     <string name="polish">Polski</string>
     <string name="english">English</string>
-    <string name="unavaible_language">"Language is not available"</string>
+    <string name="unavaible_language">Language is not available</string>
     <string name="repeat">Could you repeat?</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.degus.accesspedia.activity.main;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.degus.accesspedia.R;
+import com.example.degus.accesspedia.SharedPreferencesManager;
 import com.example.degus.accesspedia.activity.AboutActivity;
 
 import java.util.Locale;
@@ -20,21 +22,38 @@ import java.util.Locale;
 public abstract class ContextMenuMainActivity extends AbstractMainActivity {
 
     private boolean isMuted = false;
+    private SharedPreferencesManager preferences;
+    private Menu menu;
 
+
+    @SuppressLint("RestrictedApi")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_layout, menu);
         if (menu instanceof MenuBuilder) {
             ((MenuBuilder) menu).setOptionalIconsVisible(true);
         }
+        preferences = new SharedPreferencesManager(this);
         return true;
+    }
+
+    protected void setPredefinedMuteSettings() {
+        MenuItem item = menu.findItem(R.id.action_mute);
+        isMuted = preferences.getMutePref();
+        MainActivity mainActivity = (MainActivity) this;
+        if (isMuted) {
+            handleMute(mainActivity, item);
+        } else {
+            handleUnMute(mainActivity, item);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_mute:
-                handleMuteItemClick(item);
+                handleMuteValue(item);
                 break;
 
             case R.id.action_about:
@@ -56,22 +75,31 @@ public abstract class ContextMenuMainActivity extends AbstractMainActivity {
         return true;
     }
 
-    private void handleMuteItemClick(MenuItem item) {
+    private void handleMuteValue(MenuItem item) {
         MainActivity mainActivity = (MainActivity) this;
         if (isMuted) {
-            isMuted = false;
-            mainActivity.unMuteTextToSpeech();
-            item.setTitle(getString(R.string.mute));
-            item.setIcon(R.drawable.ic_unmuted);
+            handleUnMute(mainActivity, item);
         } else {
-            isMuted = true;
-            mainActivity.muteTextToSpeech();
-            item.setTitle(getString(R.string.un_mute));
-            item.setIcon(R.drawable.ic_muted);
+            handleMute(mainActivity, item);
         }
+        isMuted = !isMuted;
+        preferences.saveMutePref(isMuted);
+    }
+
+    private void handleUnMute(MainActivity mainActivity, MenuItem item) {
+        mainActivity.unMuteTextToSpeech();
+        item.setTitle(getString(R.string.mute));
+        item.setIcon(R.drawable.ic_unmuted);
+    }
+
+    private void handleMute(MainActivity mainActivity, MenuItem item) {
+        mainActivity.muteTextToSpeech();
+        item.setTitle(getString(R.string.un_mute));
+        item.setIcon(R.drawable.ic_muted);
     }
 
     public void setLocale(String lang) {
+        preferences.saveLangPref(lang);
         Locale myLocale = new Locale(lang);
         Locale.setDefault(myLocale);
         ((MainActivity) this).setLocale(myLocale);

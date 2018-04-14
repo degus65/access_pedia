@@ -147,6 +147,7 @@ public class MainActivity extends ContextMenuMainActivity {
                 TextToSpeechTool.installTextToSpeech(this);
             }
         }
+        this.setPredefinedMuteSettings();
     }
 
     public void muteTextToSpeech() {
