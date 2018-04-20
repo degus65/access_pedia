@@ -31,4 +31,16 @@
         </menu>
     </item>
 
+    <item android:title="@string/input_mode">
+        <menu>
+            <item
+                android:id="@+id/action_voice_mode"
+                android:title="@string/voice_mode" />
+            <item
+                android:id="@+id/action_keyboard_mode"
+                android:title="@string/keyboard_mode" />
+
+        </menu>
+    </item>
+
 </menu>

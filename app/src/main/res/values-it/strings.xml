@@ -18,4 +18,8 @@
     <string name="italiano">Italiano</string>
     <string name="unavaible_language">Questa lingua non è inaccessible.</string>
     <string name="repeat">Puoi ripetere?</string>
+    <string name="input_mode">Input mode</string>
+    <string name="voice_mode">Voice mode</string>
+    <string name="keyboard_mode">Keyboard mode</string>
+    <string name="keyboard_initial_message">Type what you want to know and wait for result</string>
 </resources>

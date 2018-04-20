@@ -8,10 +8,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
+import android.text.Editable;
 import android.text.Html;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -19,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.degus.accesspedia.R;
+import com.example.degus.accesspedia.SharedPreferencesManager;
 import com.example.degus.accesspedia.SpeechRecognitionUtils;
 import com.example.degus.accesspedia.TextToSpeechTool;
 import com.example.degus.accesspedia.content.ContentMaker;
@@ -26,7 +30,11 @@ import com.example.degus.accesspedia.content.ContentModel;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -40,6 +48,9 @@ public class MainActivity extends ContextMenuMainActivity {
     private ImageButton microphoneButton;
     private SpeechRecognizer speechRecognizer;
     private TextToSpeechTool textToSpeechTool;
+    private EditText textInput;
+    private Timer inputTimer = new Timer();
+    private final long DELAY = 1500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +66,31 @@ public class MainActivity extends ContextMenuMainActivity {
         articleImage = (ImageView) findViewById(R.id.articleImage);
         content = (TextView) findViewById(R.id.textContent);
         microphoneButton = (ImageButton) findViewById(R.id.micro);
+        textInput = (EditText) findViewById(R.id.editText);
+        textInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 2) {
+                    final String input = s.toString();
+                    inputTimer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            List<String> inputList = new ArrayList<>();
+                            inputList.add(input);
+                            handleResults(inputList);
+                        }
+                    }, DELAY);
+                }
+            }
+        });
         microphoneButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
@@ -74,6 +110,22 @@ public class MainActivity extends ContextMenuMainActivity {
                 microphoneButton.animate().alpha(0.1f).setDuration(1000).start();
             }
         });
+        SharedPreferencesManager preferencesManager = new SharedPreferencesManager(this);
+        if (!preferencesManager.getIsVoiceInputPref()) {
+            changeToKeyboardMode();
+        }
+    }
+
+    public void changeToKeyboardMode() {
+        microphoneButton.setVisibility(View.INVISIBLE);
+        textInput.setVisibility(View.VISIBLE);
+        header.setText(R.string.keyboard_initial_message);
+    }
+
+    public void changeToVoiceMode() {
+        microphoneButton.setVisibility(View.VISIBLE);
+        textInput.setVisibility(View.INVISIBLE);
+        header.setText(getString(R.string.init_message));
     }
 
     private void initSpeechRecognizer() {
@@ -102,10 +154,14 @@ public class MainActivity extends ContextMenuMainActivity {
 
     @Override
     public void onResults(Bundle results) {
+        handleResults(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
+    }
+
+    private void handleResults(List<String> words) {
         ContentMaker contentMaker = new ContentMaker(this);
         ContentModel contentModel;
         try {
-            contentModel = contentMaker.getContent(results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION));
+            contentModel = contentMaker.getContent(words);
             setContent(contentModel);
             if (textToSpeechTool != null) {
                 textToSpeechTool.speak(Html.fromHtml(contentModel.getHeader() + " " + contentModel.getContent()).toString());

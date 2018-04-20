@@ -14,6 +14,7 @@ public class SharedPreferencesManager {
     private final static String PREF_KEY = "pref_key";
     private final static String PREF_MUTE = "mute_key";
     private final static String PREF_LANG = "lang_key";
+    private final static String PREF_VOICE_INPUT = "input_key";
 
     public SharedPreferencesManager(Context context) {
         preferences = context.getSharedPreferences(PREF_KEY, Context.MODE_PRIVATE);
@@ -33,5 +34,13 @@ public class SharedPreferencesManager {
 
     public String getLangPref() {
         return preferences.getString(PREF_LANG, Locale.getDefault().getLanguage());
+    }
+
+    public void saveInputPref(boolean isVoice) {
+        preferences.edit().putBoolean(PREF_VOICE_INPUT, isVoice).apply();
+    }
+
+    public boolean getIsVoiceInputPref() {
+        return preferences.getBoolean(PREF_VOICE_INPUT, false);
     }
 }

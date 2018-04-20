@@ -18,4 +18,8 @@
     <string name="italiano">Italiano</string>
     <string name="unavaible_language">"Język jest niedostępny."</string>
     <string name="repeat">Mógłbyś powtórzyć?</string>
+    <string name="input_mode">Tryb wprowadzania</string>
+    <string name="voice_mode">Głosowy</string>
+    <string name="keyboard_mode">Klawiatura</string>
+    <string name="keyboard_initial_message">Wpisz hasło o którym chcesz dowiedzieć się więcej i poczekaj na wynik</string>
 </resources>

@@ -51,6 +51,7 @@ public abstract class ContextMenuMainActivity extends AbstractMainActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        MainActivity mainActivity = (MainActivity) this;
         switch (item.getItemId()) {
             case R.id.action_mute:
                 handleMuteValue(item);
@@ -71,6 +72,16 @@ public abstract class ContextMenuMainActivity extends AbstractMainActivity {
 
             case R.id.lang_it:
                 setLocale("it");
+                break;
+
+            case R.id.action_keyboard_mode:
+                mainActivity.changeToKeyboardMode();
+                preferences.saveInputPref(false);
+                break;
+
+            case R.id.action_voice_mode:
+                mainActivity.changeToVoiceMode();
+                preferences.saveInputPref(true);
                 break;
 
             default:
