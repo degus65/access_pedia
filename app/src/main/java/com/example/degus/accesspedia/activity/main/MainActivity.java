@@ -2,18 +2,20 @@ package com.example.degus.accesspedia.activity.main;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
-import android.text.Editable;
 import android.text.Html;
-import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -33,8 +35,6 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -49,8 +49,6 @@ public class MainActivity extends ContextMenuMainActivity {
     private SpeechRecognizer speechRecognizer;
     private TextToSpeechTool textToSpeechTool;
     private EditText textInput;
-    private Timer inputTimer = new Timer();
-    private final long DELAY = 1500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,32 +63,14 @@ public class MainActivity extends ContextMenuMainActivity {
         header = (TextView) findViewById(R.id.header);
         articleImage = (ImageView) findViewById(R.id.articleImage);
         content = (TextView) findViewById(R.id.textContent);
+        prepareMicrophoneButton();
+        prepareTextInput();
+        setTransparencyOnScrollChange();
+        manageKeyboardOrVoicePreferency();
+    }
+
+    private void prepareMicrophoneButton() {
         microphoneButton = (ImageButton) findViewById(R.id.micro);
-        textInput = (EditText) findViewById(R.id.editText);
-        textInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > 2) {
-                    final String input = s.toString();
-                    inputTimer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            List<String> inputList = new ArrayList<>();
-                            inputList.add(input);
-                            handleResults(inputList);
-                        }
-                    }, DELAY);
-                }
-            }
-        });
         microphoneButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
@@ -103,16 +83,66 @@ public class MainActivity extends ContextMenuMainActivity {
                 }
             }
         });
+    }
+
+    private void prepareTextInput() {
+        textInput = (EditText) findViewById(R.id.editText);
+        textInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE ||
+                        event != null && event.getAction() == KeyEvent.ACTION_DOWN &&
+                                event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    if (event == null || !event.isShiftPressed()) {
+                        hideKeyboard();
+                        List<String> inputList = new ArrayList<>();
+                        inputList.add(textInput.getText().toString());
+                        handleResults(inputList);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        textInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textInput.animate().alpha(1.0f).setDuration(100).start();
+            }
+        });
+        textInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    textInput.animate().alpha(1.0f).setDuration(100).start();
+                }
+            }
+        });
+    }
+
+    private void setTransparencyOnScrollChange() {
         final ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
         scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
                 microphoneButton.animate().alpha(0.1f).setDuration(1000).start();
+                textInput.animate().alpha(0.1f).setDuration(1000).start();
             }
         });
+    }
+
+    private void manageKeyboardOrVoicePreferency() {
         SharedPreferencesManager preferencesManager = new SharedPreferencesManager(this);
         if (!preferencesManager.getIsVoiceInputPref()) {
             changeToKeyboardMode();
+        }
+    }
+
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 

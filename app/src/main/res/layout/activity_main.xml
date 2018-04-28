@@ -54,12 +54,14 @@
 
     <EditText
         android:id="@+id/editText"
+        android:background="@layout/edit_text_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
         android:ems="10"
+        android:gravity="center"
         android:inputType="text"
         android:text=""
         android:visibility="invisible" />
